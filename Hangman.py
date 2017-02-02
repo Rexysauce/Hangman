@@ -1,9 +1,10 @@
 import random
 
-def num_dashes(secret_word):
+def num_dashes(secret_word, spaces):
     for i in range(len(secret_word)):
         if secret_word[i] == ' ':
             dashes.append(' ')
+            spaces = True
         else:
             dashes.append('-')
     return "".join(dashes)
@@ -86,10 +87,18 @@ def noose(guesses_left):
         print '   |    |'
         print '   |   / \\'
         print '___|___'
+
+def print_hangman():
+    print ' _    _          _   _  _____ __  __          _   _' 
+    print '| |  | |   /\   | \ | |/ ____|  \/  |   /\   | \ | |'
+    print '| |__| |  /  \  |  \| | |  __| \  / |  /  \  |  \| |'
+    print '|  __  | / /\ \ | . ` | | |_ | |\/| | / /\ \ | . ` |'
+    print '| |  | |/ ____ \| |\  | |__| | |  | |/ ____ \| |\  |'
+    print '|_|  |_/_/    \_\_| \_|\_____|_|  |_/_/    \_\_| \_|'
     
 def which_word():
     while True:
-        enter = input('Would you like to enter a word? ').lower()
+        enter = input('Press 1 to enter a word, Press 2 for one to be selected: ').lower()
         if enter == 'yes':
             wrd = input('Enter your word:').lower()
             return wrd
@@ -104,24 +113,15 @@ dashes = []
 win = False
 guesses_left = 6
 guesses = []
+spaces = False
 
-print ' _    _          _   _  _____ __  __          _   _' 
-print '| |  | |   /\   | \ | |/ ____|  \/  |   /\   | \ | |'
-print '| |__| |  /  \  |  \| | |  __| \  / |  /  \  |  \| |'
-print '|  __  | / /\ \ | . ` | | |_ | |\/| | / /\ \ | . ` |'
-print '| |  | |/ ____ \| |\  | |__| | |  | |/ ____ \| |\  |'
-print '|_|  |_/_/    \_\_| \_|\_____|_|  |_/_/    \_\_| \_|'
+print_hangman()
 secret_word = which_word()
-dashes = num_dashes(secret_word)
+dashes = num_dashes(secret_word, spaces)
 for i in range(10):
     print ' '
 while True:
-    print ' _    _          _   _  _____ __  __          _   _' 
-    print '| |  | |   /\   | \ | |/ ____|  \/  |   /\   | \ | |'
-    print '| |__| |  /  \  |  \| | |  __| \  / |  /  \  |  \| |'
-    print '|  __  | / /\ \ | . ` | | |_ | |\/| | / /\ \ | . ` |'
-    print '| |  | |/ ____ \| |\  | |__| | |  | |/ ____ \| |\  |'
-    print '|_|  |_/_/    \_\_| \_|\_____|_|  |_/_/    \_\_| \_|'
+    print_hangman()
     print ' '
     noose(guesses_left)
     print dashes
@@ -136,16 +136,17 @@ while True:
         break
     if guesses_left == 0:
         break
-print ' _    _          _   _  _____ __  __          _   _' 
-print '| |  | |   /\   | \ | |/ ____|  \/  |   /\   | \ | |'
-print '| |__| |  /  \  |  \| | |  __| \  / |  /  \  |  \| |'
-print '|  __  | / /\ \ | . ` | | |_ | |\/| | / /\ \ | . ` |'
-print '| |  | |/ ____ \| |\  | |__| | |  | |/ ____ \| |\  |'
-print '|_|  |_/_/    \_\_| \_|\_____|_|  |_/_/    \_\_| \_|'
+print_hangman()
 print ' '
 if win == True:
     noose(guesses_left)
-    print 'Congrats! You win. The word was: ' + secret_word
+    if spaces == true:
+        print 'Congrats! You win. The phrase was: ' + secret_word
+    else:
+        print 'Congrats! You win. The word was: ' + secret_word
 else:
     noose(guesses_left)
-    print 'You lose. The word was: ' + secret_word
+    if spaces == true:
+        print 'You lose. The phrase was: ' + secret_word
+    else:
+        print 'You lose. The word was: ' + secret_word
